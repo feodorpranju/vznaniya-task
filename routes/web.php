@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/registration', RegistrationController::class)->name('registration');
+
+Route::middleware('auth')->group(function() {
+    Route::get('/auth', AuthenticationController::class)->name('auth');
+
+    Route::get('/reset-password', PasswordResetController::class)->name('reset-password');
+
+    Route::get('/profile', ProfileController::class)->name('profile');
+
+    Route::post('/logout', function () {
+        auth()->logout();
+        return redirect('registration');
+    })->name('logout');
 });
