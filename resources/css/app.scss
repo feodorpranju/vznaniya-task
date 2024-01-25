@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'inter.font.scss';
+
+[x-cloak] {
+    display: none;
+}
